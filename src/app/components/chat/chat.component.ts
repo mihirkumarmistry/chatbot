@@ -143,10 +143,7 @@ export class ChatComponent {
     this.messages.update(messages => [...messages, typingMessage]);
     this.scrollToBottom();
 
-    const responseDelay = 1000 + Math.random() * 2000;
-    setTimeout(() => {
-      this.websocket.sendMessage(userMessage);
-    }, responseDelay);
+    this.websocket.sendMessage(userMessage);
   }
 
   clearChat() {

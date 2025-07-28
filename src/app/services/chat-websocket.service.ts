@@ -9,7 +9,7 @@ export class ChatWebsocketService {
     private messageSubject = new Subject<string>();
 
     connect(): void {
-        this.socket = new WebSocket('ws://127.0.0.1:8000/ws/chat/');
+        this.socket = new WebSocket('ws://127.0.0.1:8765');
 
         this.socket.onopen = () => {
             console.log('WebSocket connection established');

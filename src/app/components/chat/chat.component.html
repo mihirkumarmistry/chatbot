@@ -1,0 +1,95 @@
+<div class="chatbot-container" [class.dark-theme]="isDarkTheme()">
+  <!-- Header -->
+  <mat-toolbar class="chatbot-header">
+    <div class="header-content">
+      <div class="bot-info">
+        <div class="bot-avatar">
+          <mat-icon>smart_toy</mat-icon>
+        </div>
+        <div class="bot-details">
+          <h3>AI Assistant</h3>
+          <span class="status" [class.online]="isOnline()">
+            {{ isOnline() ? 'Online' : 'Offline' }}
+          </span>
+        </div>
+      </div>
+      <div class="header-actions">
+        <mat-icon [matBadge]="messageCount()" matBadgeSize="small" matBadgeColor="accent" *ngIf="messageCount() > 0">
+          chat
+        </mat-icon>
+        <button mat-icon-button [matMenuTriggerFor]="menu" matTooltip="Options">
+          <mat-icon>more_vert</mat-icon>
+        </button>
+        <mat-menu #menu="matMenu">
+          <button mat-menu-item (click)="clearChat()">
+            <mat-icon>clear_all</mat-icon>
+            Clear Chat
+          </button>
+          <button mat-menu-item (click)="toggleTheme()">
+            <mat-icon>{{ isDarkTheme() ? 'light_mode' : 'dark_mode' }}</mat-icon>
+            {{ isDarkTheme() ? 'Light Mode' : 'Dark Mode' }}
+          </button>
+          <button mat-menu-item (click)="exportChat()">
+            <mat-icon>download</mat-icon>
+            Export Chat
+          </button>
+        </mat-menu>
+      </div>
+    </div>
+  </mat-toolbar>
+
+  <!-- Quick Actions -->
+  <div class="quick-actions" *ngIf="messages().length <= 1">
+    <h4>Quick Actions</h4>
+    <mat-chip-listbox>
+      <mat-chip-option *ngFor="let suggestion of quickSuggestions" (click)="sendMessage(suggestion)"
+        class="suggestion-chip">
+        {{ suggestion }}
+      </mat-chip-option>
+    </mat-chip-listbox>
+  </div>
+
+  <!-- Messages -->
+  <div class="messages-container" #messagesContainer>
+    <div class="messages-list">
+      <div *ngFor="let message of messages(); trackBy: trackByMessageId" class="message-wrapper"
+        [class.user-message]="message.isUser" [class.bot-message]="!message.isUser">
+
+        <div class="message-content">
+          <div class="message-avatar" *ngIf="!message.isUser">
+            <mat-icon>smart_toy</mat-icon>
+          </div>
+
+          <div class="message-bubble">
+            <div class="message-text">
+              <span *ngIf="message.isTyping" class="typing-indicator">
+                <mat-spinner diameter="16"></mat-spinner>
+                Working on it...
+              </span>
+              <span *ngIf="!message.isTyping" [innerHTML]="formatMessage(message.content)"></span>
+            </div>
+            <div class="message-time">
+              {{ formatTime(message.timestamp) }}
+            </div>
+          </div>
+
+          <div class="message-avatar" *ngIf="message.isUser">
+            <mat-icon>person</mat-icon>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Input Area -->
+  <div class="input-container">
+    <mat-form-field appearance="outline" class="message-input">
+      <mat-label>Type your message...</mat-label>
+      <input matInput [(ngModel)]="currentMessage" (keyup.enter)="sendMessage()" [disabled]="isTyping()" #messageInput>
+      <button matSuffix mat-icon-button (click)="sendMessage()" [disabled]="!currentMessage.trim() || isTyping()"
+        matTooltip="Send message">
+        <mat-icon>{{ isTyping() ? 'hourglass_empty' : 'send' }}</mat-icon>
+      </button>
+    </mat-form-field>
+  </div>
+</div>

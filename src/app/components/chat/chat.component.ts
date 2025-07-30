@@ -96,9 +96,9 @@ export class ChatComponent {
 
   addWelcomeMessage() {
     const welcomeMessages = [
-      'Hello! I\'m your AI assistant. I\'m here to help with questions, creative projects, coding, or just to have a great conversation! What can I do for you today? 🤖',
-      'Hi there! Welcome to our chat. I\'m ready to assist you with a wide variety of topics. Whether you need help, want to learn something new, or just feel like chatting, I\'m all ears! What\'s on your mind?',
-      'Greetings! I\'m excited to meet you. I can help with everything from answering questions and explaining concepts to creative writing and problem-solving. How can I make your day better?'
+      "Welcome to Embassy Suites Niagara Falls – Fallsview! 🌊 I'm your virtual assistant, here to help you with hotel amenities, booking policies, dining options, and anything else you need during your stay.",
+      "Hi there! 👋 Looking for details about check-in times, breakfast, parking, or nearby attractions? I'm your Embassy Suites chatbot – here to make your visit smooth and enjoyable!",
+      "Greetings from Embassy Suites Niagara Falls! 🏨 Whether you’re planning your stay, exploring our dining services, or have questions about our suites, I'm here to help you every step of the way."
     ];
 
     const welcomeMessage: Message = {

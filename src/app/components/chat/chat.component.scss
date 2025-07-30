@@ -229,6 +229,7 @@
 /* Dark theme */
 .dark-theme {
   background: #1a1a1a;
+  color: #e0e0e0 !important;
 }
 
 .dark-theme .messages-container {
@@ -251,6 +252,10 @@
 }
 
 .dark-theme .quick-actions h4 {
+  color: #e0e0e0;
+}
+
+.dark-theme .mdc-evolution-chip__text-label {
   color: #e0e0e0;
 }
 
